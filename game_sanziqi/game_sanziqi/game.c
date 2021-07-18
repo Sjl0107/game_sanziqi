@@ -115,9 +115,12 @@ char CheckWin(char board[ROW][COL], int row, int col) {
 			{
 				break;
 			}
-			if (count == col - 1) {
-				return board[i][0];
-			}
+			//if (count == col - 1) {
+			//	return board[i][0];
+			//}
+		}
+		if (count == col - 1) {
+			return board[i][0];
 		}
 	}
 
@@ -130,16 +133,19 @@ char CheckWin(char board[ROW][COL], int row, int col) {
 	for (i = 0; i < col; i++) {
 		count = 0;
 		for (j = 0; j < row - 1; j++) {
-			if (board[j][i] == board[j+1][i ] && board[j][i] != ' ') {
+			if (board[j][i] == board[j+1][i] && board[j][i] != ' ') {
 				count++;
 			}
 			else
 			{
 				break;
 			}
-			if (count == row - 1) {
-				return board[0][i];
-			}
+			//if (count == row - 1) {
+			//	return board[0][i];
+			//}
+		}
+		if (count == row - 1) {
+			return board[0][i];
 		}
 	}
 	 
@@ -150,33 +156,42 @@ char CheckWin(char board[ROW][COL], int row, int col) {
 	//if (board[2][0] == board[1][1] && board[1][1] == board[0][2] && board[1][1] != ' ') {
 	//	return board[1][1];
 	//}
+	
+	//分别判断两条对角线
+	int count1 = 0;
 	for (i = 0; i < row-1; i++) {
-		count = 0;
-		if ((board[i][i] == board[i + 1][i + 1])&&(board[0][0]!=' ')) {
-			count++;
+		//count = 0;
+		if ((board[i][i] == board[i + 1][i + 1])&&(board[0][0]!=' ')) {//循环判断第一条对角线 如果相同计数器累加 不相同就跳出循环
+			count1++;
 		}
 		else
 		{
 			break;
 		}
-		if (count == row - 1) {
-			return board[0][0];
-		}
+		//if (count1 == row - 1) {//到此时 第一条对角线上所有元素相同 游戏结束 返回胜利条件 count达不到row-1！！
+		//	return board[0][0];
+		//}
 	}
+	if (count1 == row - 1) {//到此时 需要在外层判断！！ 第一条对角线上所有元素相同 游戏结束 返回胜利条件
+		return board[0][0];
+	}
+	int count2 = 0;
 	for (i = 0; i < row - 1; i++) {
-		count = 0;
-		if (board[i][row-1-i] == board[i + 1][row-2-i] && board[row-1][0] != ' ') {
-			count++;
+		//count = 0;
+		if (board[i][row-1-i] == board[i + 1][row-2-i] && board[row-1-i][0] != ' ') {
+			count2++;
 		}
 		else
 		{
 			break;
 		}
-		if (count == row - 1) {
-			return board[row-1][0];
-		}
+		//if (count2 == row - 1) {
+		//	return board[row-1][0];
+		//}
 	}
-
+	if (count2 == row - 1) {
+		return board[row - 1][0];
+	}
 	//判断平局 棋盘是否满了 是否有空格
 	if (IsFull(board,ROW,COL)==1) {
 		return 'Q';
